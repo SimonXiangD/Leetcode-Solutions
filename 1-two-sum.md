@@ -1,0 +1,59 @@
+# 1. Two Sum
+- Method 1:
+
+    two loops, direct idea
+
+    | |   Complexity  |     
+    | ----------- | ----------- | 
+    |   Memory    | O(1)  | 
+    |      Time       | O(n^2) | 
+
+- Method 2：
+
+    define an array of pairs, pair contains the original array member and its index, define an comparator to sort it and use front and back pointer
+    | |   Complexity  |  
+    | ----------- | ----------- | 
+    |  Memory     | O(n)  | 
+    |      Time       | O(nlogn)  |  
+
+- Method 3:
+    use a hash to record, as hash takes average O(1), worst O(n) to find
+
+    | |   Complexity  |
+    | ----------- | ----------- | 
+    |  Memory     | O(n)  | 
+    |      Time       | O(n)   | 
+
+    solution:
+
+    ```
+    class Solution {
+    public:
+        vector<int> twoSum(vector<int>& nums, int target) {
+            unordered_map<int, int> umap;
+            for(int i = 0; i < nums.size(); i++) {
+                if(umap.find(target - nums[i]) != umap.end()) {
+                    return {umap[target - nums[i]], i};
+                }
+                umap[nums[i]] = i;
+            }
+            return {-1, -1};
+        }
+    };
+    ```
+
+- Additional Knowledge:
+       
+    What is the difference between map and unordered_map in c++ ? 
+
+    |             | ordered_map | unordered_map |
+    | ----------- | ----------- | ----------- |
+    | Implementation      | RB tree  | hash map |
+    | Find time   | O(logn)        | average O(1), worst O(n)|
+    | Insert time   | O(logn)        | average O(1), worst O(n)|
+    | Delete time   | O(logn)        | average O(1), worst O(n)|
+    | Suitable for   | ordered case        | frequent find|
+
+
+
+<br>
