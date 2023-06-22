@@ -1,0 +1,59 @@
+1. Two Sum
+Method 1:
+two loops, direct idea
+
+time and memory：
+O(n^2) O(1)
+
+Method 2：
+define an array of pairs, pair contains the original array member and its index, define an comparator to sort it and use front and back pointer
+
+time and memory:
+O(nlogn) O(n)
+
+Method 3:
+use a hash to record, as hash takes average O(1), worst O(n) to find
+
+time and memory:
+O(n) O(n)
+
+Additional Knowledge:
+What is the difference between map and unordered_map in c++ ? 
+
+implementation: RB tree hash map 
+find time: O(logn) average O(1), worst O(n)
+insert time: O(logn)  same as up
+delete time: O(logn) same as up 
+suitable for: ordered case  frequent find
+
+15. 3Sum 18. 4Sum ... nSum
+Cases where n > 2 is quite different, as the worst case is higher than O(n^2), so we can directly quick sort the array.
+
+Method 1:
+Suppose we already know the function of n-1 Sum. Then how dow we do nSum? 
+We only need to iterate through the array, and for every i we assume it will be in the answer array, then we do n-1 Sum with target = target - nums[i]
+
+There are also a few details to notice. 
+1. Since the requirements say that we mustn't contain duplicate answer arrays, we have to judge during the loop and continue if the current number is the same with the last one.
+2. To save time, we can judge if the current number is bigger than target/n or the last number is smaller than target/n.
+3. Now that we've sorted the whole array, there is no need for a hashmap for 2 sum to be O(n). We can use two pointers, front and end to do it.
+4. Use long long in case of overflow.
+
+Using this method, we can solve all n sum problems if n > 2.
+
+Further exploration:
+Is there any better algorithm with lower time complexity? Seems to be connected to TCS, which I haven't learned yet.
+
+time and memory:
+O(size^(n-1)) O(1)
+
+16. 3Sum Closest
+Method 1:
+Just sort the array, and loop over i. Inside every round of the loop, we use two pointers, one front and one back.
+
+There are also a few details to notice. 
+1. Inside the loop, we can calculate whether the head and tail is bigger / smaller than the target - nums[i], then we can save a lot of calculation.
+2. Remember to comment the cout when submitting, or the time and memory will be incorrect. (a silly mistake...)
+
+time and memory:
+O(n^2) O(1)
