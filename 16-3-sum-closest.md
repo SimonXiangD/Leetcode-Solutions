@@ -1,0 +1,77 @@
+# 16. 3Sum Closest
+- Method 1:
+
+    Just sort the array, and loop over i. Inside every round of the loop, we use two pointers, one front and one back.
+
+    There are also a few details to notice. 
+
+    <ol>
+
+    <li>
+    1. Inside the loop, we can calculate whether the head and tail is bigger / smaller than the target - nums[i], then we can save a lot of calculation.
+    </li>
+    <li>
+    2. Remember to comment the cout when submitting, or the time and memory will be incorrect. (a silly mistake...)
+    </li>
+    <br>
+    </ol>
+
+    
+
+    | |   Complexity  |
+    | ----------- | ----------- | 
+    |  Memory     | O(1)  | 
+    |      Time       |  O(n^2) | 
+
+    Solution:
+
+    ```
+    class Solution {
+    public:
+
+        int twoSumCloset(vector<int>& nums, int target, int start) {
+            int left = start, right = nums.size() - 1;
+            int curMin = INT_MAX;
+            int curVal = 0;
+            while(left < right) {
+                if(nums[left] >= target / 2) {
+                    int tmp = nums[left] + nums[left+1] - target;
+                    return tmp < curMin ? tmp + target : curVal;
+                }
+                if(nums[right] <= target / 2) {
+                    int tmp = target - nums[right] - nums[right-1];
+                    return tmp < curMin ?  target - tmp : curVal;
+                } 
+                int tmp = nums[left] + nums[right];
+                if(tmp == target) return target;
+                if(tmp < target) { left++; }
+                else { right--; }
+                if(abs(target - tmp) < curMin) {
+                    curMin = abs(target - tmp);
+                    curVal = tmp;
+                }
+            }
+            return curVal;
+
+        }
+
+        int threeSumClosest(vector<int>& nums, int target) {
+            sort(nums.begin(), nums.end());
+            int curMin = INT_MAX;
+            int curVal = 0;
+            for(int i = 0; i < nums.size()-2; i++) {
+                // start at i
+                int tmp = twoSumCloset(nums, target - nums[i], i+1) + nums[i];
+                // cout << i << ": " << tmp << endl;
+                // cout << i << "nums[]: " << nums[i] << endl;
+
+                if(tmp == target) return target;
+                if(abs(tmp - target) < curMin) {
+                    curVal = tmp ;
+                    curMin = abs(tmp - target);
+                }
+            }
+            return curVal;
+        }
+    };
+    ```
