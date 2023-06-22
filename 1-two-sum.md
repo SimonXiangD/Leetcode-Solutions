@@ -24,7 +24,7 @@
     |  Memory     | O(n)  | 
     |      Time       | O(n)   | 
 
-    solution:
+    Solution:
 
     ```
     class Solution {
